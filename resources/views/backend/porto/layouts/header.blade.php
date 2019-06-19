@@ -176,7 +176,7 @@
                     </li>
                     @endif
                     
-                    @if( config('website.menu_setting') == Auth::user()->group_user )
+                    @if( config('website.developer_setting') == Auth::user()->group_user || config('website.menu_setting') == Auth::user()->group_user)
                     <li class="divider"></li>
                     <li>
                         <a role="menuitem" tabindex="-1" href="{{ route('website') }}"><i class="fa fa-wrench"></i> &nbsp; System Setting</a>
