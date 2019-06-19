@@ -23,7 +23,11 @@ class PublicController extends Controller
 
     public function index()
     {
-       return view('welcome');
+
+       
+        return view('welcome');
+       
+
         // $slider = new \App\Slider();
         // $product = new \App\Product();
         // return View('frontend.'.config('website.frontend').'.pages.homepage',[
