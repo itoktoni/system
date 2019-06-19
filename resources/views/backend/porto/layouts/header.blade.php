@@ -169,6 +169,13 @@
             <div class="dropdown-menu">
                 <ul class="list-unstyled">
                     @auth
+                    @if( config('website.developer_setting') == Auth::user()->group_user )
+                    <li class="divider"></li>
+                    <li>
+                        <a role="menuitem" tabindex="-1" href="{{ route('console') }}"><i class="fa fa-terminal"></i> &nbsp; System Console</a>
+                    </li>
+                    @endif
+                    
                     @if( config('website.menu_setting') == Auth::user()->group_user )
                     <li class="divider"></li>
                     <li>
@@ -176,6 +183,7 @@
                     </li>
                     @endif
                     <li class="divider"></li>
+                    
                     <li>
                         <a role="menuitem" tabindex="-1" href="{{ route('profile') }}"><i class="fa fa-user"></i> &nbsp; My Profile</a>
                     </li>

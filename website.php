@@ -1,7 +1,8 @@
 <?php
 return [
         'name' => 'Laravel Core System',
-        'menu_setting' => 'developer',
+        'menu_setting' => 'administrator',
+        'developer_setting' => 'developer',
         'logo' => 'core_logo.png',
         'project' => 'core',
         'favicon' => 'core_favicon.png',
