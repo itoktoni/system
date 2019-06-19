@@ -67,14 +67,15 @@ class HomeController extends Controller
     public function filemanager()
     {
 
-        $directory = $directories = Storage::disk('system')->directories();
+        return view('page.home.filemanager');
+        /*$directory = $directories = Storage::disk('system')->directories();
         $files = $files = Storage::disk('system')->files();
         return view('page.home.query')->with([
             'data' => '',
             'name' => '',
             'directory' => $directory,
             'files' => $files,
-        ]);   
+        ]);   */
     }
 
     public function directory($name)

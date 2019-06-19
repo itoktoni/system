@@ -1,6 +1,6 @@
 <?php
 use App\Helpers\Helper;
-$host  = $_SERVER['HTTP_HOST'];
+$host  = php_uname('n');
 $host_upper = strtoupper($host);
 $path   = str_replace('/index.php', '', rtrim(dirname($_SERVER['PHP_SELF']), '/\\'));
 $path   = str_replace('/file-manager', '', $path);
