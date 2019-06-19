@@ -60,6 +60,7 @@ return array(
     'Collective\\Html\\' => array($vendorDir . '/laravelcollective/html/src'),
     'Balping\\JsonRaw\\' => array($vendorDir . '/balping/json-raw-encoder/src'),
     'Axdlee\\Config\\' => array($vendorDir . '/axdlee/laravel-config-writer/src'),
+    'Appstract\\Options\\' => array($vendorDir . '/appstract/laravel-options/src'),
     'App\\' => array($baseDir . '/app'),
     'Alkhachatryan\\LaravelWebConsole\\' => array($vendorDir . '/alkhachatryan/laravel-web-console/src'),
     'Alexusmai\\LaravelFileManager\\' => array($vendorDir . '/alexusmai/laravel-file-manager/src'),

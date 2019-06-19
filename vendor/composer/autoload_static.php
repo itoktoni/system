@@ -24,6 +24,7 @@ class ComposerStaticInit1c87ad60193bcf7d355e11cb81bf4c69
         '80b57af2753a8810f57757282c27fe94' => __DIR__ . '/..' . '/alkhachatryan/laravel-web-console/helpers.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         '0b47d6d4a00ca9112ba3953b49e7c9a4' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/helper.php',
+        '08150d7fefaa741ac547b3cea05f4c7c' => __DIR__ . '/..' . '/appstract/laravel-options/src/helpers.php',
         '8fde5feda9697fe0ee53a3938c839fb0' => __DIR__ . '/../..' . '/app/Helpers/Helper.php',
     );
 
@@ -138,6 +139,7 @@ class ComposerStaticInit1c87ad60193bcf7d355e11cb81bf4c69
         'A' => 
         array (
             'Axdlee\\Config\\' => 14,
+            'Appstract\\Options\\' => 18,
             'App\\' => 4,
             'Alkhachatryan\\LaravelWebConsole\\' => 32,
             'Alexusmai\\LaravelFileManager\\' => 29,
@@ -362,6 +364,10 @@ class ComposerStaticInit1c87ad60193bcf7d355e11cb81bf4c69
         array (
             0 => __DIR__ . '/..' . '/axdlee/laravel-config-writer/src',
         ),
+        'Appstract\\Options\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/appstract/laravel-options/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -499,6 +505,10 @@ class ComposerStaticInit1c87ad60193bcf7d355e11cb81bf4c69
         'App\\Sosmed' => __DIR__ . '/../..' . '/app/Sosmed.php',
         'App\\Tag' => __DIR__ . '/../..' . '/app/Tag.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'Appstract\\Options\\Console\\OptionSetCommand' => __DIR__ . '/..' . '/appstract/laravel-options/src/Console/OptionSetCommand.php',
+        'Appstract\\Options\\Option' => __DIR__ . '/..' . '/appstract/laravel-options/src/Option.php',
+        'Appstract\\Options\\OptionFacade' => __DIR__ . '/..' . '/appstract/laravel-options/src/OptionFacade.php',
+        'Appstract\\Options\\OptionsServiceProvider' => __DIR__ . '/..' . '/appstract/laravel-options/src/OptionsServiceProvider.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
         'Axdlee\\Config\\ConfigServiceProvider' => __DIR__ . '/..' . '/axdlee/laravel-config-writer/src/ConfigServiceProvider.php',

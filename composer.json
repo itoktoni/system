@@ -8,6 +8,7 @@
         "php": ">=7.0.0",
         "alexusmai/laravel-file-manager": "^2.2",
         "alkhachatryan/laravel-web-console": "^1.5",
+        "appstract/laravel-options": "^2.2",
         "axdlee/laravel-config-writer": "^1.0",
         "consoletvs/charts": "6.*",
         "fideloper/proxy": "~3.3",

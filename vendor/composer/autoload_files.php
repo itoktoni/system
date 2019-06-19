@@ -23,5 +23,6 @@ return array(
     '80b57af2753a8810f57757282c27fe94' => $vendorDir . '/alkhachatryan/laravel-web-console/helpers.php',
     'f18cc91337d49233e5754e93f3ed9ec3' => $vendorDir . '/laravelcollective/html/src/helpers.php',
     '0b47d6d4a00ca9112ba3953b49e7c9a4' => $vendorDir . '/yajra/laravel-datatables-oracle/src/helper.php',
+    '08150d7fefaa741ac547b3cea05f4c7c' => $vendorDir . '/appstract/laravel-options/src/helpers.php',
     '8fde5feda9697fe0ee53a3938c839fb0' => $baseDir . '/app/Helpers/Helper.php',
 );
