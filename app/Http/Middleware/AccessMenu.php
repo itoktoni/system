@@ -115,6 +115,7 @@ class AccessMenu {
                         ->leftJoin('group_user_connection_group_module', 'group_user_connection_group_module.conn_gu_group_module', '=', 'group_modules.group_module_code')
                         ->where('conn_gu_group_user', Auth::user()->group_user)
                         ->where('module_enable', '1')
+                            ->orderBy('group_module_sort', 'asc')
                         ->orderBy('module_sort', 'asc')
                         ->orderBy('action_sort', 'asc')
                         ->get();

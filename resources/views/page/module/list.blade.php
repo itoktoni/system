@@ -71,8 +71,9 @@
                 @isset($create)
                 <a href="{!! route("{$form}_create") !!}" class="btn btn-success">Create</a>
                 @endisset
+                <button type="submit" value="sort" name="action" class="btn btn-primary">Sort</button>
                 @isset($delete)
-                <button type="submit" value="delete" class="btn btn-danger">Delete</button>
+                    <button type="submit" value="delete" name="action" class="btn btn-danger">Delete</button>
                 @endisset
             </div>
         </div>

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Auth;
@@ -10,7 +11,8 @@ use Illuminate\Support\Facades\Cache;
 use DataTables;
 use Helper;
 
-class ModuleController extends Controller{
+class ModuleController extends Controller
+{
 
     public $table;
     public $key;
@@ -31,9 +33,9 @@ class ModuleController extends Controller{
         $this->datatable = $this->model->datatable;
         $this->rules = $this->model->rules;
         $this->searching = $this->model->searching;
-        $this->template  = $this->getTemplate();
-        $this->render    = 'page.' . $this->template . '.';
-        
+        $this->template = $this->getTemplate();
+        $this->render = 'page.' . $this->template . '.';
+
     }
 
     private function index()
@@ -43,16 +45,19 @@ class ModuleController extends Controller{
 
     public function create()
     {
-        if(request()->isMethod('POST'))
-        {
+        if (request()->isMethod('POST')) {
             $this->validate(request(), $this->rules);
 
             $data = request()->all();
             $code = request()->get('module_code');
             $data['module_link'] = $code;
-            $this->model->simpan($data);
+            $check = $this->model->simpan($data);
+            if ($check) {
 
-            return redirect()->route('module_update', ['code' => $code]);
+                return redirect()->route('module_update', ['code' => $code]);
+            }
+
+            return redirect(Route('module_list'));
         }
 
         return view($this->render . __function__)->with('template', $this->template);
@@ -60,9 +65,8 @@ class ModuleController extends Controller{
 
     public function list()
     {
-        if(request()->isMethod('POST'))
-        {
-             $getData   = $this->model->baca();
+        if (request()->isMethod('POST')) {
+            $getData = $this->model->baca();
             $datatable = Datatables::of($this->filter($getData));
             $datatable->editColumn('checkbox', function ($select) {
                 return Helper::createCheckbox($select->{$this->key});
@@ -76,15 +80,15 @@ class ModuleController extends Controller{
             $datatable->addColumn('action', function ($select) {
                 $action = [
                     'update' => ['primary', 'edit'],
-                    'list'   => ['success', 'show'],
+                    'list' => ['success', 'show'],
                 ];
 
                 if (!session()->exists('button')) {
                     session()->put('button', count($action));
                 }
                 $data = Helper::createAction([
-                    'key'    => $select->{$this->key},
-                    'route'  => $this->getModule(),
+                    'key' => $select->{$this->key},
+                    'route' => $this->getModule(),
                     'action' => $action,
                 ]);
                 return $data;
@@ -92,12 +96,12 @@ class ModuleController extends Controller{
             $datatable->rawColumns(['order', 'action', 'checkbox']);
             if (!empty(request()->get('search'))) {
                 $datatable->filter(function ($query) {
-                    $code         = request()->get('code');
-                    $search       = request()->get('search');
-                    $aggregate    = request()->get('aggregate');
+                    $code = request()->get('code');
+                    $search = request()->get('search');
+                    $aggregate = request()->get('aggregate');
                     $search_field = empty($code) ? $this->model->searching : $code;
-                    $aggregation  = empty($aggregate) ? 'like' : $aggregate;
-                    $input        = empty($aggregate) ? "%$search%" : "$search";
+                    $aggregation = empty($aggregate) ? 'like' : $aggregate;
+                    $input = empty($aggregate) ? "%$search%" : "$search";
                     $query->where($search_field, $aggregation, $input);
                 });
             }
@@ -105,8 +109,7 @@ class ModuleController extends Controller{
             return $datatable->make(true);
         }
 
-        if(request()->has('code'))
-        {
+        if (request()->has('code')) {
             $id = request()->get('code');
             return view($this->render . '.show')->with([
                 'fields' => $this->datatable,
@@ -124,8 +127,7 @@ class ModuleController extends Controller{
     {
         //dd(request()->all());
         $id = request()->get('code');
-        if(!empty($id))
-        {
+        if (!empty($id)) {
             $model = $this->validasi($this->model->baca($id));
             $controller = $model->module_controller;
             $group = new \App\GroupModule();
@@ -134,25 +136,20 @@ class ModuleController extends Controller{
             $filter = $user->getFillable();
             $f = $model->module_filters;
 
-            if(strpos($f, ','))
-            {
+            if (strpos($f, ',')) {
                 $get = explode(',', $model->first()->module_filters);
-            }
-            else
-            {
+            } else {
                 $get = $f;
             }
 
-            foreach($this->getMethod($controller) as $c)
-            {
+            foreach ($this->getMethod($controller) as $c) {
                 $act = DB::table('module_connection_action');
-                $act->where('conn_ma_action', '=', $id.'_'.$c);
+                $act->where('conn_ma_action', '=', $id . '_' . $c);
                 $act->where('conn_ma_module', '=', $id);
                 $act->get()->first();
-                
+
                 $status = false;
-                if($act->count() > 0)
-                {
+                if ($act->count() > 0) {
                     $status = true;
                 }
                 $item[] = [
@@ -173,33 +170,29 @@ class ModuleController extends Controller{
                 'list' => $this->model->getModule($id)->get()->toArray(),
                 'key' => $this->key
             ]);
-        }
-        else
-        {
-            if(request()->isMethod('POST'))
-            {
+        } else {
+            if (request()->isMethod('POST')) {
                 $id = collect(request()->query())->flip()->first();
                 $requestData = request()->all();
                 $this->model->ubah($id, $requestData);
 
-                if(request()->exists('act'))
-                {
+                if (request()->exists('act')) {
                     $this->model->saveConnectionAction($requestData);
                 }
 
                 $this->model->saveGroupModule($id, request()->get('group'));
-                
+
             }
-             return redirect()->route('module_list');
+            return redirect()->route('module_list');
         }
     }
 
     public function delete()
     {
         $action = request()->get('action');
-        if($action == 'delete'){
+        if ($action == 'delete') {
             $code = request()->get('id');
-            for($i=0;$i < count($code); $i++ ){
+            for ($i = 0; $i < count($code); $i++) {
 
                 $kode = $code[$i];
                 $getModule = $this->model->baca($kode)->first();
@@ -208,25 +201,25 @@ class ModuleController extends Controller{
                 // \File::delete(app_path().'/app/Http/Controllers/'.$getModule->module_controller.'Controller.php');
                 // \File::delete(app_path().'/app/Http/Controllers/'.$getModule->module_controller.'Controller.php');
                 // \File::delete(app_path().'/app/Http/Controllers/'.$getModule->module_controller.'Controller.php');
-                
+
                 // dd($delete);
                 $this->model->hapus($kode);
                 // \File::delete(app_path().'/app/Http/Controllers/'.$getModule->module_code.'Controller.php');
             }
         }
 
-        if($action == 'sort'){
+        if ($action == 'sort') {
             $sort = request()->get('order');
             $kode = request()->get('kode');
-            for($i=0;$i < count($sort); $i++ ){
+            for ($i = 0; $i < count($sort); $i++) {
 
                 $code = $kode[$i];
                 $order = $sort[$i];
-                $this->model->saveSort($code,$order);
+                $this->model->saveSort($code, $order);
             }
         }
 
-         return redirect()->back();
+        return redirect()->back();
     }
 
 }

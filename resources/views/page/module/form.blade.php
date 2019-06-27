@@ -22,7 +22,7 @@
 
     {!! Form::label($template.'_controller', 'Sort', ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4 {{ $errors->has($template.'_sort') ? 'has-error' : ''}}">
-        {!! Form::number($template.'_sort', 1, ['class' => 'form-control']) !!}
+        {!! Form::number($template.'_sort', null, ['class' => 'form-control']) !!}
         {!! $errors->first($template.'_sort', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

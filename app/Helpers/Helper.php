@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use Cache;
+use Illuminate\Support\Facades\Cache;
 use Curl;
 use DB;
 use Route;
@@ -194,7 +194,7 @@ class Helper {
 
 		$class = "form-control input-sm text-center";
 		$aksi = '<input type="hidden" name="kode[]" value="' . $data['hidden'] . '">';
-		$aksi = $aksi . '<input type="text" name="order[]" class="' . $class . '" value="' . $data['value'] . '">';
+        $aksi = $aksi . '<input type="text" name="order[]" style="width:50px;" class="' . $class . '" value="' . $data['value'] . '">';
 		return $aksi;
 	}
 

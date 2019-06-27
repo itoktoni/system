@@ -1,16 +1,16 @@
 <?php
+
 namespace App;
 
-use Helper;
+use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Cocur\Slugify\Slugify;
+use Illuminate\Database\QueryException as QueryExceptionAlias;
 
 class Category extends Model
 {
-    protected $table      = 'category';
+    protected $table = 'category';
     protected $primaryKey = 'id';
-    protected $fillable   = [
+    protected $fillable = [
         'id',
         'name',
         'description',
@@ -19,15 +19,15 @@ class Category extends Model
         'updated_at',
     ];
     public $datatable = [
-        'id'            => [false => 'ID'],
-        'name'          => [true => 'Name'],
-        'description'   => [true => 'Description'],
-        'slug'          => [true => 'Slug'],
+        'id' => [false => 'ID'],
+        'name' => [true => 'Name'],
+        'description' => [true => 'Description'],
+        'slug' => [true => 'Slug'],
     ];
-    public $searching    = 'name';
-    public $timestamps   = true;
+    public $searching = 'name';
+    public $timestamps = true;
     public $incrementing = true;
-    public $rules        = [
+    public $rules = [
         'name' => 'required|unique:category|min:3',
     ];
 
@@ -46,19 +46,18 @@ class Category extends Model
 
     public function simpan($request)
     {
-        try
-        {
+        try {
             if (!$this->incrementing) {
-                $code                       = $this->generateKey();
+                $code = $this->generateKey();
                 $request[$this->primaryKey] = $code;
             }
 
             if (!empty($request['images'])) {
-                $file                      = request()->file('images');
-                $ext                       = $file->extension();
-                $name                      = Helper::unic(10) . '.' .$ext; 
+                $file = request()->file('images');
+                $ext = $file->extension();
+                $name = Helper::unic(10) . '.' . $ext;
                 $request['images'] = $name;
-                $simpen                    = $file->storeAs('slider', $name);
+                $file->storeAs('slider', $name);
             }
             $request['slug'] = str_slug($request['name']);
             $activity = $this->create($request);
@@ -66,18 +65,19 @@ class Category extends Model
                 session()->put('success', 'Data Has Been Added !');
                 return true;
             }
-        } catch (\Illuminate\Database\QueryException $ex) {
+        } catch (QueryExceptionAlias $ex) {
 
             session()->put('danger', $ex->getMessage());
         }
+
+        return false;
     }
 
     public function hapus($data)
     {
         if (!empty($data)) {
             $data = collect($data)->flatten()->all();
-            try
-            {
+            try {
                 $activity = $this->Destroy($data);
                 if ($activity) {
                     session()->put('success', 'Data Has Been Deleted !');
@@ -85,7 +85,7 @@ class Category extends Model
                 }
                 session()->flash('alert-danger', 'Data Can not Deleted !');
                 return false;
-            } catch (\Illuminate\Database\QueryException $ex) {
+            } catch (QueryExceptionAlias $ex) {
                 session()->flash('alert-danger', $ex->getMessage());
             }
         }
@@ -93,14 +93,13 @@ class Category extends Model
 
     public function ubah($id, $request)
     {
-        try
-        {
+        try {
             if (!empty($request['images'])) {
-                $file                      = request()->file('images');
-                $ext                       = $file->extension();
-                $name                      = Helper::unic(10) . '.' .$ext; 
+                $file = request()->file('images');
+                $ext = $file->extension();
+                $name = Helper::unic(10) . '.' . $ext;
                 $request['images'] = $name;
-                $simpen                    = $file->storeAs('slider', $name);
+                $file->storeAs('slider', $name);
             }
 
             $request['slug'] = str_slug($request['name']);
@@ -110,7 +109,7 @@ class Category extends Model
             }
 
             return $activity;
-        } catch (\Illuminate\Database\QueryException $ex) {
+        } catch (QueryExceptionAlias $ex) {
             session()->flash('alert-danger', $ex->getMessage());
         }
     }
@@ -119,7 +118,7 @@ class Category extends Model
     {
         if (!empty($id)) {
             return $this->find($id);
-        } 
+        }
 
         $model = $this->select();
         return $model;
