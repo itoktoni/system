@@ -1,7 +1,7 @@
 @extends('backend.'.config('website.backend').'.layouts.app')
 
 @component('component.select2')
-    
+
 @endcomponent
 @push('javascript')
 <script>
@@ -105,7 +105,7 @@ $(function() {
                 </div>
             </div>
         </div>
-        
+
         <div class="navbar-fixed-bottom" id="menu_action">
             <div class="text-right" style="padding:5px">
                 <a href="{!! route("{$form}_list") !!}" class="btn btn-warning">Back</a>

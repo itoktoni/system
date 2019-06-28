@@ -51,6 +51,9 @@ class ModuleController extends Controller
             $data = request()->all();
             $code = request()->get('module_code');
             $data['module_link'] = $code;
+
+            empty($data['module_sort']) ? $data['module_sort'] = 1 : $data['module_sort'];
+
             $check = $this->model->simpan($data);
             if ($check) {
 
