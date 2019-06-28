@@ -21,7 +21,7 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ require __DIR__.'/vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/bootstrap/app.php';
+$app = require_once __DIR__ . '/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -49,18 +49,7 @@ $app = require_once __DIR__.'/bootstrap/app.php';
 |
 */
 
-if(!file_exists(base_path().'/env/local.env')){
-	
-    copy(base_path().'/.env', 'env/local.env');
-    copy(base_path().'/.env', 'env/production.env');
-}
-
-if(!file_exists(base_path().'/config/website.php')){
-	
-    copy(base_path().'/website.php', 'config/website.php');
-}
-
-$app->bind('path.public', function() {
+$app->bind('path.public', function () {
 
     return base_path('public'); // realpath
 });

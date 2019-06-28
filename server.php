@@ -8,19 +8,35 @@
  */
 
 
-if(isset($_GET['copy'])){
-    copy(__DIR__.'/.env.example', '.env');
-    copy(__DIR__.'/env.example', 'env/local.env');
-    copy(__DIR__.'/.env.example', 'env/production.env');
-    copy(__DIR__.'/public/.htaccess', '../.htaccess');
-    copy(__DIR__.'/public/robots.txt', '../robots.txt');
-    echo 'success';
-    die();
-}
+if (isset($_GET['info'])) {
+    phpinfo();
+} else if (isset($_GET['install'])) {
 
+    if (!file_exists(base_path() . '/.htaccess')) {
 
-if(isset($_GET['info'])){
-	phpinfo();
+        copy(base_path() . '/public/default/.htacces', '.htaccess');
+    }
+
+    if (!file_exists(base_path() . '/env/local.env')) {
+
+        copy(base_path() . '/.env', 'env/local.env');
+        copy(base_path() . '/.env', 'env/production.env');
+    }
+
+    if (!file_exists(base_path() . '/config/website.php')) {
+
+        copy(base_path() . '/public/default/website.php', 'config/website.php');
+    }
+
+    if (!file_exists(base_path() . '/database/database.sqlite')) {
+
+        copy(base_path() . '/public/default/website.php', 'config/website.php');
+    }
+} else if (isset($_GET['https'])) {
+    if (!file_exists(base_path() . '/.htaccess')) {
+
+        copy(base_path() . '/public/default/.htaccess', '.htaccess');
+    }
 }
 
 $uri = urldecode(
@@ -30,8 +46,8 @@ $uri = urldecode(
 // This file allows us to emulate Apache's "mod_rewrite" functionality from the
 // built-in PHP web server. This provides a convenient way to test a Laravel
 // application without having installed a "real" web server software here.
-if ($uri !== '/' && file_exists(__DIR__.'/'.$uri)) {
+if ($uri !== '/' && file_exists(__DIR__ . '/' . $uri)) {
     return false;
 }
 
-require_once __DIR__.'/index.php';
+require_once __DIR__ . '/index.php';
