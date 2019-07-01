@@ -532,3 +532,23 @@ select[name=datatable_length] {
 
     
 }
+
+.select2-container .select2-selection--single{
+    height: 35px;
+}
+/*.select2-container--default .select2-selection--single{*/
+/*    margin: 3px 0px;*/
+/*}*/
+
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+    margin-top: 3px;
+}
+
+.select2-container--default .select2-selection--multiple{
+    border: 1px solid #cccccc;
+}
+
+.select2-container--default .select2-selection--single{
+    border: 1px solid #cccccc;
+}
+
